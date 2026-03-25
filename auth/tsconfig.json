@@ -2,14 +2,13 @@
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     "module": "nodenext",
-    "target": "es2016",
-    "rootDir": "./src",
-    "outDir": "./dist",
+    "target": "esnext",
+    // "rootDir": "./src",
+    // "outDir": "./dist",
     "types": [],
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
-
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
@@ -20,5 +19,7 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
+    "allowImportingTsExtensions":true,
+    "noEmit":true
   }
 }
