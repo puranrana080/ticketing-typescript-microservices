@@ -12,6 +12,15 @@ build :
         manual : 
           - src : 'src/**/*.ts'
             dest: .
+    - image: puranrana080/ticketing-client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.ts'
+            dest: .
+
 deploy:
   kubectl:
     manifests:
