@@ -5,9 +5,9 @@ import { User } from "../models/user.ts";
 import jwt from "jsonwebtoken"
 
 import { Password } from "../services/password.ts";
+import {ValidateRequest , BadRequestError } from "@psrtickets/common"
 
-import { ValidateRequest } from "../middlewares/validate-request.ts";
-import { BadRequestError } from "../errors/bad-request-error.ts";
+
 const router = express.Router();
 
 router.post(

@@ -7,8 +7,7 @@ import {currentUserRouter} from "./routes/current-user.ts"
 import {signinRouter} from "./routes/signin.ts"
 import {signoutRouter} from "./routes/signout.ts"
 import {signupRouter} from "./routes/signup.ts"
-import { errorHandler } from './middlewares/error-handler.ts';
-import { NotFoundError } from './errors/not-found-error.ts';
+import { errorHandler, NotFoundError  } from '@psrtickets/common';
 const app = express()
 app.set('trust proxy',true)
 app.use(express.json())
