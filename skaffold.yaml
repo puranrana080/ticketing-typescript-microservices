@@ -20,6 +20,14 @@ build :
         manual:
           - src: '**/*.ts'
             dest: .
+    - image : puranrana080/tickets
+      context : tickets
+      docker :
+        dockerfile : Dockerfile
+      sync :
+        manual : 
+          - src : 'src/**/*.ts'
+            dest: .
 
 deploy:
   kubectl:

@@ -1,22 +1,26 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cookieSession from 'cookie-session';
+import { createTicketRouter } from './routes/new.ts';
+import { showTicketRouter } from './routes/show.ts';
+import { indexTicketRouter } from './routes/index.ts';
+import { updateTicketRouter } from './routes/update.ts';
 
 
-import {currentUserRouter} from "./routes/current-user.ts"
-import {signinRouter} from "./routes/signin.ts"
-import {signoutRouter} from "./routes/signout.ts"
-import {signupRouter} from "./routes/signup.ts"
-import { errorHandler, NotFoundError  } from '@psrtickets/common';
+
+import { errorHandler, NotFoundError ,currentUser } from '@psrtickets/common';
 const app = express()
 app.set('trust proxy',true)
 app.use(express.json())
 app.use(cookieSession({signed:false,secure:true}))
 
-app.use(currentUserRouter)
-app.use(signinRouter)
-app.use(signoutRouter)
-app.use(signupRouter)
+app.use(currentUser)
+
+app.use(createTicketRouter)
+app.use(showTicketRouter)
+app.use(indexTicketRouter)
+app.use(updateTicketRouter)
+
 app.use(async(req,res) => {
   throw new NotFoundError();
 });
@@ -27,7 +31,7 @@ const start =async()=>{
         throw new Error('JWT_KET must be defined')
     }
     if(!process.env.MONGO_URI){
-        throw new Error('MONGO_URI must be defined')
+        throw new Error ('MONGO_URI must be defined')
     }
     try{
           await mongoose.connect(process.env.MONGO_URI);
