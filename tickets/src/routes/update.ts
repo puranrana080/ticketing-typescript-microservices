@@ -3,6 +3,8 @@ import type {Request ,Response} from "express";
 import { body } from "express-validator";
 import { ValidateRequest,NotFoundError, requireAuth, NotAuthorizedError } from "@psrtickets/common";
 import { Ticket } from "../models/ticket.ts";
+import { TicketUpdatedPublisher } from "../events/publishers/ticket-updated-publisher.ts";
+import { natsWrapper } from "../nats-wrapper.ts";
 
 const router = express.Router()
 
@@ -26,6 +28,13 @@ ticket.set({
     price:req.body.price
 })
 await ticket.save();
+
+new TicketUpdatedPublisher(natsWrapper.client).publish({
+    id:ticket.id,
+    title:ticket.title,
+    price:ticket.price,
+    userId: ticket.userId
+})
 
 res.send(ticket)
 
