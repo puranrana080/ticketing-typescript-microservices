@@ -28,7 +28,6 @@ build :
         manual : 
           - src : 'src/**/*.ts'
             dest: .
-
 deploy:
   kubectl:
     manifests:
