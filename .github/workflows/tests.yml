@@ -4,6 +4,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        service: [auth, client, tickets]
     steps:
       - uses: actions/checkout@v2
       - run: cd auth && npm install && npm run test:ci
+       - name: Run tests
+        run: cd ${{ matrix.service }} && npm run test:ci --if-present
+
+      - name: Build
+        run: cd ${{ matrix.service }} && npm run build --if-present
